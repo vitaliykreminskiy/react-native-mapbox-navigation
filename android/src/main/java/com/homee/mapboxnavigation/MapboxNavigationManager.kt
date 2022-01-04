@@ -84,4 +84,9 @@ class MapboxNavigationManager(var mCallerContext: ReactApplicationContext) : Sim
         }
         view.setMute(mute)
     }
+
+    @ReactProp(name = "profile")
+    fun setProfile(view: MapboxNavigationView, profile: String) {
+        view.setProfile((profile))
+    }
 }

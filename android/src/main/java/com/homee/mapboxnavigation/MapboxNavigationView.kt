@@ -1,6 +1,8 @@
 package com.homee.mapboxnavigation
 
+import android.app.PendingIntent.getActivity
 import android.location.Location
+import android.widget.Toast
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.events.RCTEventEmitter
@@ -30,6 +32,7 @@ class MapboxNavigationView(private val context: ThemedReactContext) : Navigation
     private var shouldSimulateRoute = false
     private var showsEndOfRouteFeedback = false
     private var mute = false
+    private var profile = RouteUrl.PROFILE_DRIVING
     private lateinit var navigationMapboxMap: NavigationMapboxMap
     private lateinit var mapboxNavigation: MapboxNavigation
 
@@ -96,7 +99,7 @@ class MapboxNavigationView(private val context: ThemedReactContext) : Navigation
                     .applyDefaultParams()
                     .accessToken(accessToken)
                     .coordinates(mutableListOf(origin, destination))
-                    .profile(RouteUrl.PROFILE_DRIVING)
+                    .profile(this.profile)
                     .steps(true)
                     .voiceInstructions(!this.mute)
                     .build(), routesReqCallback)
@@ -201,6 +204,10 @@ class MapboxNavigationView(private val context: ThemedReactContext) : Navigation
     override fun onStop() {
         super.onStop()
         this.mapboxNavigation?.unregisterLocationObserver(locationObserver)
+    }
+
+    fun setProfile(profile: String) {
+        this.profile = profile
     }
 
     fun setOrigin(origin: Point?) {
