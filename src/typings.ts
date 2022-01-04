@@ -2,6 +2,7 @@
  * Provide an array with longitude and latitude [$longitude, $latitude]
  */
 declare type Coordinate = [number, number];
+declare type RoutingProfile = 'driving' | 'driving-traffic' | 'walking' | 'cycling'
 declare type OnLocationChangeEvent = {
   nativeEvent?: {
     latitude: number;
@@ -33,5 +34,6 @@ export interface IMapboxNavigationProps {
   showsEndOfRouteFeedback?: boolean;
   hideStatusView?: boolean;
   mute?: boolean;
+  profile?: RoutingProfile
 }
 export { };
